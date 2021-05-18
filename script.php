@@ -26,50 +26,21 @@
   const finished_sound = document.getElementById('finishedSound');
   const form_elem = document.querySelector('form');
 
-  form.addEventListener('submit', beginRoutine);  
+  form.addEventListener('submit', makeFormData);  
   form_elem.addEventListener('formdata', beginCount);
-
-  // $("#startButton").click(
-  //   startTimer
-  // );
-    
-  // $("#resetButton").click(function (e) {
-  //   i = 0;
-  // });
-
-  // $("#stopButton").click(function (e) {
-  //   i=0;
-  //   $("#stopWatch").html(i);
-  //   clearInterval(timerID);
-  // });
 
   function startTimer(i) {
     totalCount++;
 
-    var progress_bar;
-    var rest_counter;
-
-    var newText = restNow ? "Resting." : "Interval " + (intervalCount + 1) + " in progress.";  
-    
-    if (restNow) {
-      log.innerHTML += 
-        '<div class="progress"><div class="progress-bar bg-warning" id="progressBar' + totalCount + '" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div></div> ';    
-       progress_bar = document.getElementById('progressBar' + totalCount);       
-      rest_sound.play();
-    } else {
-      log.innerHTML += 
-        '<div class="progress"><div class="progress-bar" id="progressBar' + totalCount + '" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div></div> ';    
-       progress_bar = document.getElementById('progressBar' + totalCount);   
-       contract_sound.play();      
-    }
-
-
+    var progress_bar = constructProgressBar(intervalCount, totalCount, restNow);;
     var seconds = 0;
+
+    // run update function every 1000ms (1s)
     timerID = setInterval(function() {
         seconds++;
         $("#stopWatch").html(seconds);
 
-        // update progress bar
+        // update progress bar every 1000ms (1s)
         progress_bar.style.width = (seconds/i*100) + "%";
         progress_bar.innerHTML = (seconds/i*100) + " %";       
 
@@ -93,7 +64,48 @@
     }, 1000);
   }  
 
-  function beginRoutine(e) {
+  function constructProgressBar(i, t, r) {
+    var progressBarLabel = r ? "Resting" : "Interval " + (i + 1);
+    var progress_bar;
+    var htmlText;
+
+    if (r) {
+      htmlText = 
+          '<div class="row align-items-start">' +
+            '<div class="col-10 align-self-start">' +
+              '<div class="progress" id="progressShell">' +
+                '<div class="progress-bar bg-warning" id="progressBar' + t + '" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>' +
+              '</div>' +
+            '</div>' +
+            '<div class="col-2 align-self-end">' +
+              '<label class="progress-label" for="progressShell">' + progressBarLabel + '</label>' +
+            '</div>' +
+          '</div>';
+
+        log.innerHTML += htmlText;
+        progress_bar = document.getElementById('progressBar' + t);
+        rest_sound.play();
+    } else {
+      htmlText = 
+          '<div class="row align-items-start">' +
+            '<div class="col-10 align-self-start">' +
+              '<div class="progress" id="progressShell">' + 
+                '<div class="progress-bar" id="progressBar' + t + '" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>' +
+              '</div>' +
+            '</div>' +
+            '<div class="col-2 align-self-end">' +
+              '<label class="progress-label" for="progressShell">' + progressBarLabel + '</label>' + 
+            '</div>' +
+          '</div>';
+
+        log.innerHTML += htmlText;  
+        progress_bar = document.getElementById('progressBar' + t);
+        contract_sound.play();      
+    }    
+    return progress_bar;
+  }  
+
+  function makeFormData(e) {
     let formData = new FormData(form_elem);   
     e.preventDefault();
   }

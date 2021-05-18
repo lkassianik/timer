@@ -19,32 +19,41 @@
   </div>
   <div class="container">
     <div class="row">
-      <div class="col-8">
+      <div class="col-10">
         <div class="container" id="log">
-<!--           <div class="progress">
-            <div class="progress-bar" id="progressBar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>   -->          
+
+<!--           <div class="row align-items-start">
+            <div class="col-10 align-self-start">
+              <div class="progress" id="progressShell">
+                <div class="progress-bar" id="progressBar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>              
+            </div>
+            <div class="col-2 align-self-end">
+              <label class="progress-label" for="progressShell">Label</label>
+            </div>
+          </div> -->
+          
         </div>      
       </div>
-      <div class="col-4">
+      <div class="col-2">
         <form action="" method="get" id="intervalSetter">
           <div class="form-group row">
-            <label for="interval">Interval duration (1-90 seconds):</label>
-            <input type="number" class="form-control" id="interval" name="interval" required min="0" max="100" placeholder="Interval (1-90 seconds)">
+            <label for="interval">Interval duration</label>
+            <input type="number" class="form-control" id="interval" name="interval" required min="0" max="100" placeholder="1-90 seconds">
           </div>
           <div class="form-group row">
-            <label for="rest">Rest duration (0-120 seconds):</label>
-            <input type="number" class="form-control" id="rest" name="rest" required  min="0" max="120" placeholder="Rest (1-120 seconds)">
+            <label for="rest">Rest duration</label>
+            <input type="number" class="form-control" id="rest" name="rest" required  min="0" max="120" placeholder="1-120 seconds">
           </div>
           <div class="form-group row">
-            <label for="repetitions">Number of intervals (max 10):</label>
-            <input type="number" class="form-control" id="repetitions" name="repetitions" required  min="1" max="10" placeholder="Number of intervals (1-10)">          
+            <label for="repetitions">Number of intervals</label>
+            <input type="number" class="form-control" id="repetitions" name="repetitions" required  min="1" max="10" placeholder="1-10">          
           </div>    
           <div class="form-group row">
-            <div class="col-sm-2">
+            <div class="col ">
               <input type="submit" class="btn btn-primary" value="Start">  
             </div>
-            <div class="col-sm-4">
+            <div class="col">
               <input type="submit" class="btn btn-secondary" value="Stop">  
             </div>
             
