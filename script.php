@@ -1,6 +1,5 @@
 
 <script type="text/javascript"> 
-// add progress bar
 // add reset button
 // disable start button when in progress
 // add option to set a time for the routine, instead of number of intervals, but not both
@@ -21,6 +20,7 @@
   const form = document.getElementById('intervalSetter');
   const log = document.getElementById('log');
 
+  const start_button = document.getElementById('startButton');
   const rest_sound = document.getElementById('restSound');
   const contract_sound = document.getElementById('contractSound');
   const finished_sound = document.getElementById('finishedSound');
@@ -46,15 +46,15 @@
 
         // if we reach the end of the duration of the rest or interval, clear interval, increment if needed, toggle rest
         if (seconds == i) {        
-          if (!restNow){intervalCount++};                   
-        
+          clearInterval(timerID);
+
+          if (!restNow){intervalCount++};                           
           //if this is not the last interval, set new timer
           if (intervalCount == repetitions) {
             log.innerHTML += "<p>You're done!</p>";
             finished_sound.play();
-            clearInterval(timerID);             
+            start_button.disabled = false;
           } else {
-            clearInterval(timerID);              
             // toggle rest status after each timer
             restNow = !restNow;            
             //check if rest and continue 
@@ -116,6 +116,9 @@
     interval = search.get('interval');
     rest = search.get('rest');
     repetitions = search.get('repetitions');
+
+    //disable start button
+    start_button.disabled = true;
     startTimer(interval);
   }
 

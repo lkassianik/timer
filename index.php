@@ -32,7 +32,7 @@
               <label class="progress-label" for="progressShell">Label</label>
             </div>
           </div> -->
-          
+
         </div>      
       </div>
       <div class="col-2">
@@ -51,7 +51,7 @@
           </div>    
           <div class="form-group row">
             <div class="col ">
-              <input type="submit" class="btn btn-primary" value="Start">  
+              <input type="submit" class="btn btn-primary" id="startButton" value="Start">  
             </div>
             <div class="col">
               <input type="submit" class="btn btn-secondary" value="Stop">  
