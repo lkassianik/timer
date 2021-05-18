@@ -50,9 +50,11 @@
     var rest_counter;
 
     var newText = restNow ? "Resting." : "Interval " + (intervalCount + 1) + " in progress.";  
+    
     if (restNow) {
-      log.innerHTML += '<div id="rest' + totalCount + '">' + newText + "</div>";  
-      rest_counter = document.getElementById('rest'+totalCount);  
+      log.innerHTML += 
+        '<div class="progress"><div class="progress-bar bg-warning" id="progressBar' + totalCount + '" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div></div> ';    
+       progress_bar = document.getElementById('progressBar' + totalCount);       
       rest_sound.play();
     } else {
       log.innerHTML += 
@@ -66,12 +68,10 @@
     timerID = setInterval(function() {
         seconds++;
         $("#stopWatch").html(seconds);
-        if (!restNow) {
-          progress_bar.style.width = (seconds/i*100) + "%";
-          progress_bar.innerHTML = (seconds/i*100) + " %";       
-        } else {
-          rest_counter.innerHTML = seconds;
-        }
+
+        // update progress bar
+        progress_bar.style.width = (seconds/i*100) + "%";
+        progress_bar.innerHTML = (seconds/i*100) + " %";       
 
         // if we reach the end of the duration of the rest or interval, clear interval, increment if needed, toggle rest
         if (seconds == i) {        

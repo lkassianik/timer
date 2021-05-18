@@ -20,7 +20,7 @@
   <div class="container">
     <div class="row">
       <div class="col-8">
-        <div id="log">
+        <div class="container" id="log">
 <!--           <div class="progress">
             <div class="progress-bar" id="progressBar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
           </div>   -->          
