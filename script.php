@@ -1,7 +1,6 @@
 
 <script type="text/javascript"> 
 // add reset button
-// disable start button when in progress
 // add option to set a time for the routine, instead of number of intervals, but not both
 // add volume controls for sounds
 // add time stamp for start
@@ -10,7 +9,7 @@
 
   var interval = 0;
   var rest = 0;
-  var repetitions = 1;
+  var repetitions = 0;
 
   var totalCount = 0;
   var intervalCount = 0;
@@ -54,6 +53,7 @@
             log.innerHTML += "<p>You're done!</p>";
             finished_sound.play();
             start_button.disabled = false;
+            resetTimer();
           } else {
             // toggle rest status after each timer
             restNow = !restNow;            
@@ -105,6 +105,10 @@
     return progress_bar;
   }  
 
+  function resetTimer() {
+    restNow = false; 
+  }
+
   function makeFormData(e) {
     let formData = new FormData(form_elem);   
     e.preventDefault();
@@ -113,9 +117,9 @@
   function beginCount(e) {
     var d = e.formData;
     let search = new URLSearchParams(d);
-    interval = search.get('interval');
-    rest = search.get('rest');
-    repetitions = search.get('repetitions');
+    interval = parseInt(search.get('interval'));
+    rest = parseInt(search.get('rest'));
+    repetitions += parseInt(search.get('repetitions'));
 
     //disable start button
     start_button.disabled = true;
