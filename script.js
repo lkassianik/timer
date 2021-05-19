@@ -1,5 +1,3 @@
-
-<script type="text/javascript"> 
 // add reset and pause button
 // add option to set a time for the routine, instead of number of intervals, but not both
 // add volume controls for sounds
@@ -129,6 +127,3 @@
 
     startTimer(interval);
   }
-
-</script>
-
