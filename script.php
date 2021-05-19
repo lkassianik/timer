@@ -1,6 +1,6 @@
 
 <script type="text/javascript"> 
-// add reset button
+// add reset and pause button
 // add option to set a time for the routine, instead of number of intervals, but not both
 // add volume controls for sounds
 // add time stamp for start
@@ -20,6 +20,8 @@
   const log = document.getElementById('log');
 
   const start_button = document.getElementById('startButton');
+  const stop_button = document.getElementById("stopButton");
+
   const rest_sound = document.getElementById('restSound');
   const contract_sound = document.getElementById('contractSound');
   const finished_sound = document.getElementById('finishedSound');
@@ -52,7 +54,6 @@
           if (intervalCount == repetitions) {
             log.innerHTML += "<p>You're done!</p>";
             finished_sound.play();
-            start_button.disabled = false;
             resetTimer();
           } else {
             // toggle rest status after each timer
@@ -106,6 +107,7 @@
   }  
 
   function resetTimer() {
+    Array.from(form.elements).forEach(formElement => formElement.disabled = false);
     restNow = false; 
   }
 
@@ -121,8 +123,10 @@
     rest = parseInt(search.get('rest'));
     repetitions += parseInt(search.get('repetitions'));
 
-    //disable start button
-    start_button.disabled = true;
+    //disable form
+    Array.from(form.elements).forEach(formElement => formElement.disabled = true);
+    stop_button.disabled = false;
+
     startTimer(interval);
   }
 

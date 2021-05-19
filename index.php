@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="timer.css">
 <!--   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous"> -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
   <audio id="restSound" src="rest.mp3" preload="auto"></audio>
   <audio id="contractSound" src="contract.mp3" preload="auto"></audio>
   <audio id="finishedSound" src="finished.mp3" preload="auto"></audio>
@@ -54,7 +55,7 @@
               <input type="submit" class="btn btn-primary" id="startButton" value="Start">  
             </div>
             <div class="col">
-              <input type="submit" class="btn btn-secondary" value="Stop">  
+              <input type="submit" class="btn btn-secondary" id="stopButton" value="Stop">  
             </div>
             
           </div>    
