@@ -26,7 +26,6 @@
   const form_elem = document.querySelector('form');
 
   form.addEventListener('submit', makeFormData);  
-  form_elem.addEventListener('formdata', beginCount);
 
   function startTimer(i) {
     totalCount++;
@@ -67,6 +66,7 @@
     var progressBarLabel = r ? "Resting" : "Interval " + (i + 1);
     var progress_bar;
     var htmlText;
+    var html = document.createElement("div");
 
     if (r) {
       htmlText = 
@@ -88,17 +88,18 @@
       htmlText = 
           '<div class="row align-items-start">' +
             '<div class="col-10 align-self-start">' +
-              '<div class="progress" id="progressShell">' + 
+              '<div class="progress">' + 
                 '<div class="progress-bar" id="progressBar' + t + '" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>' +
               '</div>' +
             '</div>' +
             '<div class="col-2 align-self-end">' +
-              '<label class="progress-label" for="progressShell">' + progressBarLabel + '</label>' + 
+              '<label class="progress-label">' + progressBarLabel + '</label>' + 
             '</div>' +
           '</div>';
 
         log.innerHTML += htmlText;  
         progress_bar = document.getElementById('progressBar' + t);
+        // progress_bar = progress_bar_div;
         contract_sound.play();      
     }    
     return progress_bar;
@@ -110,12 +111,11 @@
   }
 
   function makeFormData(e) {
-    let formData = new FormData(form_elem);   
+    beginCount(new FormData(form_elem));
     e.preventDefault();
   }
 
-  function beginCount(e) {
-    var d = e.formData;
+  function beginCount(d) {
     let search = new URLSearchParams(d);
     interval = parseInt(search.get('interval'));
     rest = parseInt(search.get('rest'));
