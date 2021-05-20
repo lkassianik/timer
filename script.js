@@ -3,35 +3,42 @@
 // add volume controls for sounds
 // add time stamp for start
 
-  var timerID;
+  var timerID = null;
 
+  // user inputs
   var interval = 0;
   var rest = 0;
   var repetitions = 0;
 
+  // counters
   var totalCount = 0;
   var intervalCount = 0;
   var restNow = false; 
   var progressCounter = 0;
+  var seconds = 0;
 
+  // document elements
   const form = document.getElementById('intervalSetter');
   const log = document.getElementById('log');
 
   const start_button = document.getElementById('startButton');
   const stop_button = document.getElementById("stopButton");
+  const proxy_submit_button = document.getElementById("proxySubmitButton");
 
   const rest_sound = document.getElementById('restSound');
   const contract_sound = document.getElementById('contractSound');
   const finished_sound = document.getElementById('finishedSound');
   const form_elem = document.querySelector('form');
 
+  // event listeners
+  stop_button.addEventListener('click', buttonClickHandler, false);
   form.addEventListener('submit', makeFormData);  
 
   function startTimer(i) {
     totalCount++;
+    seconds = 0;
 
-    var progress_bar = constructProgressBar(intervalCount, totalCount, restNow);;
-    var seconds = 0;
+    var progress_bar = constructProgressBar(intervalCount, totalCount, restNow);
 
     // run update function every 1000ms (1s)
     timerID = setInterval(function() {
@@ -51,7 +58,7 @@
           if (intervalCount == repetitions) {
             log.innerHTML += "<p>You're done!</p>";
             finished_sound.play();
-            resetTimer();
+            readyTimer();
           } else {
             // toggle rest status after each timer
             restNow = !restNow;            
@@ -66,7 +73,6 @@
     var progressBarLabel = r ? "Resting" : "Interval " + (i + 1);
     var progress_bar;
     var htmlText;
-    var html = document.createElement("div");
 
     if (r) {
       htmlText = 
@@ -99,15 +105,28 @@
 
         log.innerHTML += htmlText;  
         progress_bar = document.getElementById('progressBar' + t);
-        // progress_bar = progress_bar_div;
         contract_sound.play();      
     }    
     return progress_bar;
   }  
 
-  function resetTimer() {
+  function readyTimer() {
     Array.from(form.elements).forEach(formElement => formElement.disabled = false);
+    timerID = null;
     restNow = false; 
+  }
+
+  function stopTimer() {
+    if (timerID) {clearInterval(timerID)};
+    repetitions = intervalCount;
+    log.innerHTML += "<p>Timer stopped.</p>";
+    finished_sound.play();    
+    readyTimer();
+  }
+
+  function buttonClickHandler(e) {
+    stopTimer();
+    e.preventDefault();
   }
 
   function makeFormData(e) {
@@ -120,6 +139,7 @@
     interval = parseInt(search.get('interval'));
     rest = parseInt(search.get('rest'));
     repetitions += parseInt(search.get('repetitions'));
+    action = search.get('action');
 
     //disable form
     Array.from(form.elements).forEach(formElement => formElement.disabled = true);
