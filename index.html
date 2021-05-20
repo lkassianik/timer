@@ -20,7 +20,7 @@
   </div>
   <div class="container">
     <div class="row">
-      <div class="col-10">
+      <div class="col-8">
         <div class="container" id="log">
 
 <!--           <div class="row align-items-start">
@@ -36,7 +36,7 @@
 
         </div>      
       </div>
-      <div class="col-2">
+      <div class="col-4">
         <form action="" method="post" id="intervalSetter">
           <div class="form-group row">
             <label for="interval">Interval duration</label>
@@ -55,8 +55,11 @@
               <input type="submit" class="btn btn-primary" id="startButton" value="Start" action="start">
             </div>
             <div class="col">
-              <input type="button" class="btn btn-secondary" id="stopButton" value="Stop" action="stop">
+              <input type="button" class="btn btn-outline-secondary" id="stopButton" value="Stop" action="stop">
             </div>
+            <div class="col">
+              <input type="button" class="btn btn-outline-warning" id="pauseButton" value="Pause" action="pause">
+            </div>            
             <input type="hidden" id="proxySubmitButton">
           </div>    
         </form>
