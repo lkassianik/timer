@@ -56,7 +56,7 @@
 
     // update progress bar every 1000ms (1s)
     progress_bar.style.width = (seconds/currentPeriod*100) + "%";
-    progress_bar.innerHTML = (seconds/currentPeriod*100) + " %";       
+    progress_bar.innerHTML = Math.round(seconds/currentPeriod*100) + " %";       
 
     // if we reach the end of the duration of the rest or interval, clear interval, increment if needed, toggle rest
     if (seconds == currentPeriod) {        
