@@ -17,6 +17,7 @@
   var progressCounter = 0;
   var seconds = 0;
   var currentPeriod = 0;
+  var progressBarCount = 0;
 
   // document elements
   const form = document.getElementById('intervalSetter');
@@ -82,13 +83,14 @@
     var progressBarLabel = r ? "Resting" : "Interval " + (i + 1);
     var progress_bar;
     var htmlText;
+    progressBarCount++;
 
     if (r) {
       htmlText = 
           '<div class="row align-items-start">' +
             '<div class="col-10 align-self-start">' +
               '<div class="progress" id="progressShell">' +
-                '<div class="progress-bar bg-warning" id="progressBar' + t + '" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>' +
+                '<div class="progress-bar bg-warning" id="progressBar' + progressBarCount + '" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>' +
               '</div>' +
             '</div>' +
             '<div class="col-2 align-self-end">' +
@@ -97,14 +99,14 @@
           '</div>';
 
         log.innerHTML += htmlText;
-        progress_bar = document.getElementById('progressBar' + t);
+        progress_bar = document.getElementById('progressBar' + progressBarCount);
         rest_sound.play();
     } else {
       htmlText = 
           '<div class="row align-items-start">' +
             '<div class="col-10 align-self-start">' +
               '<div class="progress">' + 
-                '<div class="progress-bar" id="progressBar' + t + '" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>' +
+                '<div class="progress-bar" id="progressBar' + progressBarCount + '" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>' +
               '</div>' +
             '</div>' +
             '<div class="col-2 align-self-end">' +
@@ -113,7 +115,7 @@
           '</div>';
 
         log.innerHTML += htmlText;  
-        progress_bar = document.getElementById('progressBar' + t);
+        progress_bar = document.getElementById('progressBar' + progressBarCount);
         contract_sound.play();      
     }    
     return progress_bar;
@@ -123,6 +125,7 @@
     Array.from(form.elements).forEach(formElement => formElement.disabled = false);
     timerID = null;
     restNow = false;
+    intervalCount = 0;
     return;
   }
 
@@ -133,7 +136,6 @@
 
   function stopButtonClickHandler(e) {
     stopTimer();
-    repetitions = intervalCount;
     log.innerHTML += "<p>Timer stopped.</p>";
     finished_sound.play();
     readyTimer();
@@ -164,7 +166,7 @@
     let search = new URLSearchParams(d);
     interval = parseInt(search.get('interval'));
     rest = parseInt(search.get('rest'));
-    repetitions += parseInt(search.get('repetitions'));
+    repetitions = parseInt(search.get('repetitions'));
     action = search.get('action');
 
     //disable form
