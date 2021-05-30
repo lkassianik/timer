@@ -20,6 +20,8 @@
   var progressBarCount = 0;
 
   // document elements
+  const sample_progress_bar = document.getElementById('sampleProgressBar');
+
   const form = document.getElementById('intervalSetter');
   const log = document.getElementById('log');
 
@@ -79,6 +81,10 @@
     return;
   }
 
+  function updateScroll(){
+    log.scrollTop = log.scrollHeight;
+  }
+
   function constructProgressBar(i, t, r) {
     var progressBarLabel = r ? "Resting" : "Interval " + (i + 1);
     var progress_bar;
@@ -117,7 +123,8 @@
         log.innerHTML += htmlText;  
         progress_bar = document.getElementById('progressBar' + progressBarCount);
         contract_sound.play();      
-    }    
+    }   
+    updateScroll(); 
     return progress_bar;
   }  
 
@@ -168,6 +175,8 @@
     rest = parseInt(search.get('rest'));
     repetitions = parseInt(search.get('repetitions'));
     action = search.get('action');
+
+    sample_progress_bar.remove();
 
     //disable form
     Array.from(form.elements).forEach(formElement => formElement.disabled = true);
